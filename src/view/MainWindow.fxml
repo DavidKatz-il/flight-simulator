@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Sphere?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="500.0" prefWidth="333.0">
+         <children>
+            <Button layoutX="35.0" layoutY="50.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="135.0" layoutY="50.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="235.0" layoutY="50.0" mnemonicParsing="false" text="Button" />
+         </children>
+      </AnchorPane>
+      <Separator layoutX="333.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="10.0" />
+      <AnchorPane layoutX="333.0" prefHeight="500.0" prefWidth="333.0">
+         <children>
+            <TextArea layoutX="19.0" layoutY="131.0" prefHeight="350.0" prefWidth="300.0" />
+            <RadioButton layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="RadioButton" />
+            <Button layoutX="220.0" layoutY="50.0" mnemonicParsing="false" text="Button" />
+         </children>
+      </AnchorPane>
+      <Separator layoutX="666.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="10.0" />
+      <AnchorPane layoutX="666.0" prefHeight="500.0" prefWidth="333.0">
+         <children>
+            <AnchorPane layoutX="67.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="100.0" layoutY="100.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Sphere layoutX="100.0" layoutY="100.0" radius="50" />
+               </children>
+            </AnchorPane>
+            <Slider layoutX="27.0" layoutY="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
+            <Slider layoutX="67.0" layoutY="430.0" prefHeight="20.0" prefWidth="200.0" />
+            <RadioButton layoutX="100.0" layoutY="50.0" mnemonicParsing="false" text="RadioButton" />
+            <Label layoutX="150.0" layoutY="150.0" text="Label" />
+            <Label layoutX="150.0" layoutY="461.0" text="Label" />
+         </children>
+      </AnchorPane>
+      <Separator layoutY="100.0" prefHeight="20.0" prefWidth="999.0" />
+   </children>
+</AnchorPane>
