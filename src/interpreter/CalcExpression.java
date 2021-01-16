@@ -1,4 +1,4 @@
-package interpeter;
+package interpreter;
 
 import expressions.*;
 import expressions.Number;
@@ -12,8 +12,7 @@ public class CalcExpression {
         Queue<String> queue = new LinkedList<String>();
         Stack<String> stack = new Stack<String>();
         Stack<Expression> stackExp = new Stack<Expression>();
-
-        String[] split = exp.split("(?<=[-+*/()])|(?=[-+*/()])");
+        String[] split = exp.replace("\\s+", "").split("(?<=[-+*/()])|(?=[-+*/()])");
         for (String s : split){
             if (Utilities.isVarExist(s)){
                 s = "" + Utilities.getVarSymbol(s).calculate();
@@ -55,7 +54,11 @@ public class CalcExpression {
             }
             else{
                 Expression right = stackExp.pop();
-                Expression left = stackExp.pop();
+                Expression left;
+                if (!stackExp.isEmpty())
+                    left = stackExp.pop();
+                else
+                    left = new Number(0);
 
                 switch(str) {
                     case "/":
