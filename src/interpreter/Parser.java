@@ -1,4 +1,4 @@
-package interpeter;
+package interpreter;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -86,9 +86,9 @@ public class Parser {
             }
         }
 
-        if (((line == null) || !line.startsWith("return")) && parsedData.errors.isEmpty()) {
-            parsedData.errors.add("Program must contain a return statement.");
-        }
+//        if (((line == null) || !line.startsWith("return")) && parsedData.errors.isEmpty()) {
+//            parsedData.errors.add("Program must contain a return statement.");
+//        }
 
         return parsedData;
     }

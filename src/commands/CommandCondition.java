@@ -1,9 +1,9 @@
 package commands;
 
 import expressions.Expression;
-import interpeter.CalcExpression;
-import interpeter.Lexer;
-import interpeter.Utilities;
+import interpreter.CalcExpression;
+import interpreter.Lexer;
+import interpreter.Utilities;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +26,7 @@ public abstract class CommandCondition implements Command {
         cmd_args = new LinkedList<>();
 
         for (String line: lines) {
-            List<String> tokens = this.lexer.lexer(line.replaceAll("\\s+", ""));
+            List<String> tokens = this.lexer.lexer(line);
             String cmdName = tokens.get(0);
             if (cmdName.contains("=") || ((tokens.size() > 1) && tokens.get(1).equals("="))) {
                 cmdName = "=";

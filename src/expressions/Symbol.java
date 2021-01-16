@@ -1,6 +1,6 @@
 package expressions;
 
-import interpeter.Utilities;
+import interpreter.Utilities;
 
 public class Symbol implements Expression{
     private double value;

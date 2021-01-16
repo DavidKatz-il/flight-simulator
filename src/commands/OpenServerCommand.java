@@ -2,8 +2,8 @@ package commands;
 
 import customExceptions.NumOfArgsException;
 import expressions.Expression;
-import interpeter.CalcExpression;
-import interpeter.Utilities;
+import interpreter.CalcExpression;
+import interpreter.Utilities;
 import network.Server;
 
 import java.util.List;

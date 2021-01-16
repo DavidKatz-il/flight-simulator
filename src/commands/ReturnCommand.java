@@ -1,7 +1,7 @@
 package commands;
 
 import expressions.Expression;
-import interpeter.CalcExpression;
+import interpreter.CalcExpression;
 
 import java.util.List;
 

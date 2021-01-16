@@ -1,6 +1,6 @@
 package network;
 
-import interpeter.Utilities;
+import interpreter.Utilities;
 
 import java.io.IOException;
 import java.io.PrintWriter;

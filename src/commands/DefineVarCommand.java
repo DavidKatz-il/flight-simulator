@@ -3,7 +3,7 @@ package commands;
 import customExceptions.NumOfArgsException;
 import expressions.Expression;
 import expressions.Symbol;
-import interpeter.Utilities;
+import interpreter.Utilities;
 
 import java.util.List;
 import java.util.stream.Collectors;

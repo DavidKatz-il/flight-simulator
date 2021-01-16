@@ -2,7 +2,7 @@ package commands;
 
 import customExceptions.NumOfArgsException;
 import expressions.Expression;
-import interpeter.CalcExpression;
+import interpreter.CalcExpression;
 import network.Client;
 
 import java.util.List;

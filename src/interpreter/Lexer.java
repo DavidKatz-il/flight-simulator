@@ -1,4 +1,4 @@
-package interpeter;
+package interpreter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Lexer {
         Scanner in = new Scanner(line);
 
         while (in.hasNext()){
-            tokens.add(in.next().trim());
+            tokens.add(in.next().replaceAll("\\s+", ""));
         }
 
         in.close();

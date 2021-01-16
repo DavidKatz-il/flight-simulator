@@ -2,8 +2,8 @@ package commands;
 
 import expressions.Expression;
 import expressions.Symbol;
-import interpeter.CalcExpression;
-import interpeter.Utilities;
+import interpreter.CalcExpression;
+import interpreter.Utilities;
 
 import java.util.List;
 import java.util.stream.Collectors;
