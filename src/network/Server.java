@@ -1,18 +1,22 @@
 package network;
 
-import interpeter.Utilities;
+import expressions.Number;
+import interpreter.Utilities;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.List;
 import java.util.stream.Stream;
 
 
 public class Server {
+    List<String> nodes = Utilities.getNodes();
 
     public Server(int port, int sleep) {
+        InitializeSimNodes();
         new Thread(()->runServer(port, sleep)).start();
     }
 
@@ -35,23 +39,29 @@ public class Server {
                         try {
                             if ((line=in.readLine()) == null)
                                 continue;
-
                             double[] simArr = Stream.of(line.split(","))
                                     .mapToDouble (Double::parseDouble)
                                     .toArray();
-                            Utilities.getSimNumber("simX").setValue(simArr[0]);
-                            Utilities.getSimNumber("simY").setValue(simArr[1]);
-                            Utilities.getSimNumber("simZ").setValue(simArr[2]);
+
+                            for (int i=0; i<simArr.length; i++) {
+                                Utilities.getSimNumber(nodes.get(i)).setValue(simArr[i]);
+                            }
                             Thread.sleep(sleep*10);
                         } catch (NumberFormatException | InterruptedException e) { e.printStackTrace(); }
                     }
                     in.close();
                     client.close();
                     Utilities.clientStatus.connected = false;
-                } catch (SocketTimeoutException e){ e.printStackTrace(); }
+                } catch (SocketTimeoutException e){}//e.printStackTrace(); }
             }
             server.close();
         } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    private void InitializeSimNodes() {
+        for (String node: nodes) {
+            Utilities.setSimNumber(node, new Number(0));
+        }
     }
 
     public void close() {
