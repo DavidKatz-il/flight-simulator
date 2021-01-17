@@ -2,14 +2,12 @@ package interpreter;
 
 import commands.*;
 import expressions.Expression;
+import java.util.Arrays;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class MyInterpreter {
 
-    public static int parseScript(String filePath) throws IOException {
+    public MyInterpreter() {
         Utilities.setCommand("print", new PrintCommand());
         Utilities.setCommand("return", new ReturnCommand());
         Utilities.setCommand("sleep", new SleepCommand());
@@ -19,9 +17,12 @@ public class MyInterpreter {
         Utilities.setCommand("openDataServer", new OpenServerCommand());
         Utilities.setCommand("connect", new ConnectCommand());
         Utilities.setCommand("disconnect", new DisconnectCommand());
+    }
+
+    public int start(String text) {
         Expression result = null;
         Parser parser = new Parser();
-        Parser.ParsedData info = parser.parse(Files.readAllLines(Paths.get(filePath)));
+        Parser.ParsedData info = parser.parse(Arrays.asList(text.split("\\n")));
         if (!info.errors.isEmpty()){
             System.out.println("List of Errors:");
             System.out.println(info.errors.toString());
