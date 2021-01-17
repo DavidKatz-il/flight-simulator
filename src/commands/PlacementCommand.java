@@ -32,7 +32,7 @@ public class PlacementCommand extends CommandBase{
             symbol.setValue(val);
             String simulator = symbol.getSimulator();
             if ((simulator) != null)
-                Utilities.addMassage("set " + simulator + " " + val);
+                Utilities.addMessage("set " + simulator + " " + val);
         }
         return Utilities.getVarSymbol(var);
     }

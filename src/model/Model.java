@@ -13,18 +13,18 @@ public class Model extends Observable {
     }
 
     public void setThrottle(double val) {
-        Utilities.addMassage("set /controls/engines/current-engine/throttle " + val);
+        Utilities.addMessage("set /controls/engines/current-engine/throttle " + val);
     }
 
     public void setRudder(double val) {
-        Utilities.addMassage("set /controls/flight/rudder " + val);
+        Utilities.addMessage("set /controls/flight/rudder " + val);
     }
 
     public void setAileron(double val) {
-        Utilities.addMassage("set /controls/flight/aileron " + val);
+        Utilities.addMessage("set /controls/flight/aileron " + val);
     }
 
     public void setElevator(double val) {
-        Utilities.addMassage("set /controls/flight/elevator " + val);
+        Utilities.addMessage("set /controls/flight/elevator " + val);
     }
 }

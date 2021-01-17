@@ -20,7 +20,7 @@ public class Utilities {
     private static Map<String, Symbol> varToSymbolTable = new HashMap<String, Symbol>();
     private static Map<String, Command> commandTable = new HashMap<String, Command>();
     private static ConcurrentHashMap<String, Number> simToNumberTable = new ConcurrentHashMap<String, Number>();
-    private static BlockingQueue<String> massages = new LinkedBlockingDeque<String>();
+    private static BlockingQueue<String> messages = new LinkedBlockingDeque<String>();
     private static HashSet<Integer> openPorts = new HashSet<Integer>();
     public static volatile boolean stop = false;
     public static final ClientStatus clientStatus = new ClientStatus();
@@ -54,9 +54,9 @@ public class Utilities {
         return commandTable.containsKey(name);
     }
 
-    public static void addMassage(String massage) {massages.add(massage);}
-    public static BlockingQueue<String> getMassages() { return massages;}
-    public static String pollMassage() { return massages.poll();}
+    public static void addMessage(String message) {messages.add(message);}
+    public static BlockingQueue<String> getMessages() { return messages;}
+    public static String pollMessage() { return messages.poll();}
 
     public static boolean isPortExist(int port) { return openPorts.contains(port); }
     public static void addPort(int port) { openPorts.add(port); }

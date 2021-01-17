@@ -10,7 +10,7 @@ public class DisconnectCommand extends CommandBase{
     int numOfArgs = 1;
     @Override
     public Expression execute(List<String> args) throws Exception {
-        Utilities.addMassage("bye");
+        Utilities.addMessage("bye");
         Thread.sleep(110);
         return () -> 0;
     }

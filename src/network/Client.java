@@ -23,8 +23,8 @@ public class Client {
                 Socket interpreter=new Socket(host, port);
                 PrintWriter out=new PrintWriter(interpreter.getOutputStream(), true );
                 while (!Utilities.stop) {
-                    while (!Utilities.getMassages().isEmpty()){
-                        out.println(Utilities.pollMassage());
+                    while (!Utilities.getMessages().isEmpty()){
+                        out.println(Utilities.pollMessage());
                     }
                     try {Thread.sleep(100);} catch (InterruptedException e1) {e1.printStackTrace();}
                 }
