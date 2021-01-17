@@ -24,7 +24,7 @@
       <AnchorPane layoutX="333.0" prefHeight="500.0" prefWidth="333.0">
          <children>
             <TextArea fx:id="textArea" layoutX="19.0" layoutY="131.0" prefHeight="350.0" prefWidth="300.0" />
-            <RadioButton layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="AutoPilot">
+            <RadioButton fx:id="autoPilot" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#startAutoPilot" text="Auto Pilot">
                <toggleGroup>
                   <ToggleGroup fx:id="radioButton" />
                </toggleGroup></RadioButton>
@@ -37,16 +37,16 @@
             <AnchorPane layoutX="80.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Circle fx:id="joystickRadius" fill="DODGERBLUE" layoutX="100.0" layoutY="100.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Sphere fx:id="joystick" layoutX="100.0" layoutY="100.0" onMouseDragged="#joystickDragged" onMousePressed="#joystickDragged" onMouseReleased="#joystickReleased" radius="50" />
+                  <Sphere fx:id="joystick" layoutX="100.0" layoutY="100.0" onMouseDragged="#joystickDragged" onMousePressed="#joystickDragged" onMouseReleased="#joystickReleased" radius="50.0" />
                </children>
             </AnchorPane>
-            <Slider layoutX="47.0" layoutY="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
-            <Slider layoutX="90.0" layoutY="430.0" prefHeight="20.0" prefWidth="200.0" />
-            <RadioButton layoutX="100.0" layoutY="50.0" mnemonicParsing="false" selected="true" text="Manual" toggleGroup="$radioButton" />
-            <Label layoutX="134.0" layoutY="150.0" text="&lt;- aileron -&gt;" />
+            <Slider fx:id="throttleSlider" blockIncrement="0.01" layoutX="50.0" layoutY="200.0" max="1.0" onMouseDragged="#throttleDragged" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" showTickLabels="true" showTickMarks="true" value="0.01" />
+            <Slider fx:id="rudderSlider" blockIncrement="0.01" layoutX="90.0" layoutY="430.0" max="1.0" min="-1.0" onMouseDragged="#rudderDragged" prefHeight="20.0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" value="0.01" />
+            <RadioButton fx:id="manualPilot" layoutX="100.0" layoutY="50.0" mnemonicParsing="false" onAction="#startManualPilot" selected="true" text="Manual Pilot" toggleGroup="$radioButton" />
+            <Label layoutX="130.0" layoutY="150.0" text="&lt;- aileron -&gt;" />
             <Label layoutX="160.0" layoutY="461.0" text="rudder" />
-            <Label layoutX="1.0" layoutY="295.0" rotate="-90.0" text="throttle" />
-            <Label layoutX="255.0" layoutY="295.0" rotate="90.0" text="&lt;- elevator -&gt;" />
+            <Label layoutY="290.0" rotate="-90.0" text="throttle" />
+            <Label layoutX="255.0" layoutY="290.0" rotate="90.0" text="&lt;- elevator -&gt;" />
          </children>
       </AnchorPane>
       <Separator layoutY="100.0" prefHeight="20.0" prefWidth="999.0" />
