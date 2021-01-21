@@ -2,6 +2,8 @@ package model;
 
 import interpreter.MyInterpreter;
 import interpreter.Utilities;
+import network.Client;
+import network.Server;
 
 import java.util.Observable;
 
@@ -26,5 +28,14 @@ public class Model extends Observable {
 
     public void setElevator(double val) {
         Utilities.addMessage("set /controls/flight/elevator " + val);
+    }
+
+    public void connectToSimulator(int serverPort, int serverSleep, String clientHost, int clientPort) {
+        new Server(serverPort, serverSleep);
+        new Client(clientHost, clientPort);
+        synchronized (Utilities.clientStatus) {
+            if (Utilities.clientStatus.connected)
+                notifyObservers("connectedToSimulator");
+        }
     }
 }

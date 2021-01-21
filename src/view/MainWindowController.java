@@ -1,18 +1,21 @@
 package view;
 
-import interpreter.Utilities;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Sphere;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import viewmodel.ViewModel;
 
 import java.io.File;
@@ -47,9 +50,9 @@ public class MainWindowController implements Initializable, Observer {
         this.viewModel = viewModel;
         viewModel.aileron.bind(this.aileron);
         viewModel.elevator.bind(this.elevator);
-        viewModel.throttle.bind(throttleSlider.valueProperty());
-        viewModel.rudder.bind(rudderSlider.valueProperty());
-        viewModel.scriptText.bind(textArea.textProperty());
+        viewModel.throttle.bind(this.throttleSlider.valueProperty());
+        viewModel.rudder.bind(this.rudderSlider.valueProperty());
+        viewModel.scriptText.bind(this.textArea.textProperty());
     }
 
     @Override
@@ -78,6 +81,20 @@ public class MainWindowController implements Initializable, Observer {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void connectPopUp() throws IOException {
+        FXMLLoader fxl = new FXMLLoader(getClass().getResource("ConnectPopUpWindow.fxml"));
+        AnchorPane root = (AnchorPane)fxl.load();
+
+        Scene scene = new Scene(root,300,250);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        ConnectPopUpController mwc= fxl.getController();
+        mwc.setViewModel(viewModel);
+        viewModel.addObserver(mwc);
     }
 
     public void joystickReleased(MouseEvent mouseEvent) {

@@ -39,11 +39,14 @@ public class MyInterpreter {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Utilities.stop = true;
         if (result != null)
             return (int) result.calculate();
         else
             return -1;
+    }
+
+    public void stop() {
+        Utilities.stop = true;
     }
 
 }

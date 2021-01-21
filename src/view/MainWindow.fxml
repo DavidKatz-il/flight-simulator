@@ -15,7 +15,7 @@
    <children>
       <AnchorPane prefHeight="500.0" prefWidth="333.0">
          <children>
-            <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" text="Connect" />
+            <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" text="Connect" onAction="#connectPopUp"/>
             <Button layoutX="104.0" layoutY="50.0" mnemonicParsing="false" text="Load data" />
             <Button layoutX="208.0" layoutY="50.0" mnemonicParsing="false" text="Calculate path" />
          </children>

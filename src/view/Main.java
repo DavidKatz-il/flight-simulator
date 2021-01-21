@@ -14,7 +14,6 @@ import viewmodel.ViewModel;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        MyInterpreter.parseScript("resources/script.txt");
         FXMLLoader fxl = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
         AnchorPane root = (AnchorPane)fxl.load();
         primaryStage.setTitle("Flight Simulator");

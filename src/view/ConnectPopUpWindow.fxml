@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ConnectPopUpController">
+   <children>
+      <Label layoutX="30.0" layoutY="7.0" text="Connecting to Simulator" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+         <font>
+            <Font name="Serif Bold" size="22.0" />
+         </font>
+      </Label>
+      <Button layoutY="215.0" mnemonicParsing="false" onAction="#connectSimulator" prefHeight="31.0" prefWidth="343.0" text="Connect" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0" />
+      <Separator layoutY="40.0" prefWidth="300.0" />
+      <Separator layoutY="125.0" prefWidth="300.0" />
+      <Separator layoutY="210.0" prefWidth="300.0" />
+      <Label layoutY="70.0" rotate="-90.0" text="Server" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutY="157.0" rotate="-90.0" text="Client" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="serverPort" layoutX="95.0" layoutY="48.0" text="5400" />
+      <TextField fx:id="serverSleep" layoutX="95.0" layoutY="87.0" text="10" />
+      <TextField fx:id="clientIp" layoutX="95.0" layoutY="133.0" text="127.0.0.1" />
+      <TextField fx:id="clientPort" layoutX="95.0" layoutY="172.0" text="5402" />
+      <Label layoutX="50.0" layoutY="53.0" text="port:" />
+      <Label layoutX="50.0" layoutY="93.0" text="sleep:" />
+      <Label layoutX="50.0" layoutY="138.0" text="ip:" />
+      <Label layoutX="50.0" layoutY="177.0" text="port:" />
+   </children>
+</AnchorPane>
