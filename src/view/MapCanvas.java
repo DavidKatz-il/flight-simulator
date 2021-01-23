@@ -35,9 +35,6 @@ public class MapCanvas extends Canvas {
             for (int j = 0; j < matrix[i].length; j++) {
                 gc.setFill(getColor(matrix[i][j]));
                 gc.fillRect(j * widthBlock, i * heightBlock, widthBlock, heightBlock);
-                gc.setFont(new Font("TimesRoman", heightBlock / 5));
-                gc.setFill(Color.BLACK);
-                gc.fillText(matrix[i][j] + "", (j + 0.5) * widthBlock, (i + 0.5) * heightBlock);
             }
         }
     }
@@ -64,22 +61,26 @@ public class MapCanvas extends Canvas {
 
     private Color getColor(int val) {
         int red, green, blue;
-        double percent = ((double)(val - this.min) / (double)(this.max - this.min)) * 100;
+        double percent = ((double)(val - this.min) / (double)(this.max - this.min));
 
-        if (val == this.max) {
+        if (val == this.min) {
             red = 255;
             green = 0;
             blue = 0;
-        } else if (percent < 50) {
-            red = (int)(255 * (percent / 50));
+        } else if (percent > 0.5) {
+            red = (int)(255 * percent);
             green = 255;
             blue = 0;
         } else {
             red = 255;
-            green = (int)(255 * ((50 - percent % 50) / 50));
+            green = (int)(255 * percent * 2);
             blue = 0;
         }
-        return Color.rgb(red, green, blue);
+        try {
+            return Color.rgb(red, green, blue);
+        } catch (Exception e) {
+            System.out.println(red + " " + green + " " + blue);
+            return Color.rgb(255, 255, 255);
+        }
     }
-
 }
