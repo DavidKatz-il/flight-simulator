@@ -67,7 +67,7 @@ public class Utilities {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File("resources/generic_small.xml"));
+            Document document = builder.parse(new File("./resources/generic_small.xml"));
             document.getDocumentElement().normalize();
             NodeList nList = document.getElementsByTagName("node");
             for (int temp = 0; temp < nList.getLength(); temp++) {

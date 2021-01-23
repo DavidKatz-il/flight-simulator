@@ -38,4 +38,14 @@ public class Model extends Observable {
                 notifyObservers("connectedToSimulator");
         }
     }
+
+    public void connectToSolver(String solverIp, int solverPort) {
+        synchronized (Utilities.clientStatus) {
+            if (Utilities.clientStatus.connected)
+                notifyObservers("connectedToSolver");
+        }
+    }
+
+    public void calcMap(Integer[][] matrix, int srcX, int srcY, int dstX, int dstY) {
+    }
 }

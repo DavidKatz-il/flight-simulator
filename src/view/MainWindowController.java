@@ -36,14 +36,21 @@ public class MainWindowController implements Initializable, Observer {
     private Slider rudderSlider, throttleSlider;
     @FXML
     public RadioButton manualPilot, autoPilot;
+    @FXML
+    private MapCanvas mapCanvas;
 
     ViewModel viewModel;
     private double JoystickRadius, JoystickCenterX, JoystickCenterY, JoystickInitializedCenterX, JoystickInitializedCenterY;
-    public DoubleProperty aileron, elevator;
+    public DoubleProperty aileron, elevator, planeCordX, planeCordY, destCordX, destCordY;
+    private int maxMapValue = 0, minMapValue = 0;
 
     public MainWindowController() {
         aileron = new SimpleDoubleProperty();
         elevator = new SimpleDoubleProperty();
+        planeCordX = new SimpleDoubleProperty();
+        planeCordY = new SimpleDoubleProperty();
+        destCordX = new SimpleDoubleProperty();
+        destCordY = new SimpleDoubleProperty();
     }
 
     public void setViewModel(ViewModel viewModel) {
@@ -53,6 +60,10 @@ public class MainWindowController implements Initializable, Observer {
         viewModel.throttle.bind(this.throttleSlider.valueProperty());
         viewModel.rudder.bind(this.rudderSlider.valueProperty());
         viewModel.scriptText.bind(this.textArea.textProperty());
+        viewModel.planeX.bind(this.planeCordX);
+        viewModel.planeY.bind(this.planeCordY);
+        viewModel.destX.bind(this.destCordX);
+        viewModel.destY.bind(this.destCordY);
     }
 
     @Override
@@ -62,13 +73,55 @@ public class MainWindowController implements Initializable, Observer {
         JoystickRadius = joystickRadius.getRadius();
         JoystickCenterX = (joystick.localToScene(joystick.getBoundsInLocal()).getMinX() + joystick.localToScene(joystick.getBoundsInLocal()).getMaxX()) / 2;
         JoystickCenterY = (joystick.localToScene(joystick.getBoundsInLocal()).getMinY() + joystick.localToScene(joystick.getBoundsInLocal()).getMaxY()) / 2;
+    }
 
+    public void loadCsv() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select your csv file");
+        fc.setInitialDirectory(new File("./resources/"));
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Csv Files", "*.csv");
+        fc.getExtensionFilters().add(extFilter);
+        File file = fc.showOpenDialog(null);
+        if (file != null) {
+            try {
+                Scanner s = new Scanner(file);
+                String content = s.useDelimiter("\\A").next().trim();
+                String[] rows = content.replace("\r", "").split("\n");
+                String[] corX_corY = rows[0].split(",");
+                double corX = Double.parseDouble(corX_corY[0].replace("\"", "").trim());
+                double corY = Double.parseDouble(corX_corY[1].replace("\"", "").trim());
+                double distance = Double.parseDouble(rows[1].replaceAll("[\",]", "").trim());
+                int numOfColumns = (rows[2].split(",")).length;
+
+                int max = 0, min = 0;
+                Integer[][] coords = new Integer[rows.length - 2][numOfColumns];
+                for (int i = 2; i < rows.length; i++) {
+                    coords[i - 2] = Arrays.stream(rows[i].split(","))
+                            .map(Integer::valueOf)
+                            .toArray(Integer[]::new);
+                    max = Collections.max(Arrays.asList(coords[i-2]));
+                    min = Collections.min(Arrays.asList(coords[i-2]));
+                    if (max > maxMapValue)
+                        maxMapValue = max;
+                    if (min < minMapValue)
+                        minMapValue = min;
+                }
+                mapCanvas.isMapLoaded = true;
+                planeCordX.set(corX);
+                planeCordY.set(corY);
+                mapCanvas.setData(coords, corX, corY, maxMapValue, minMapValue, distance);
+                mapCanvas.draw();
+                mapCanvas.markPlane(corX, corY);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void openFile() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Select your script file");
-        fc.setInitialDirectory(new File("resources/"));
+        fc.setInitialDirectory(new File("./resources/"));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text Files", "*.txt");
         fc.getExtensionFilters().add(extFilter);
         File file = fc.showOpenDialog(null);
@@ -85,14 +138,30 @@ public class MainWindowController implements Initializable, Observer {
 
     public void connectPopUp() throws IOException {
         FXMLLoader fxl = new FXMLLoader(getClass().getResource("ConnectPopUpWindow.fxml"));
-        AnchorPane root = (AnchorPane)fxl.load();
+        AnchorPane root = fxl.load();
 
         Scene scene = new Scene(root,300,250);
         Stage primaryStage = new Stage();
+        primaryStage.setTitle("Connect to Simulator");
         primaryStage.setScene(scene);
         primaryStage.show();
 
         ConnectPopUpController mwc= fxl.getController();
+        mwc.setViewModel(viewModel);
+        viewModel.addObserver(mwc);
+    }
+
+    public void calcPathPopUp() throws IOException {
+        FXMLLoader fxl = new FXMLLoader(getClass().getResource("CalcPathPopUpWindow.fxml"));
+        AnchorPane root = fxl.load();
+
+        Scene scene = new Scene(root,300,150);
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Connect to MapSolver");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        CalcPathPopUpController mwc= fxl.getController();
         mwc.setViewModel(viewModel);
         viewModel.addObserver(mwc);
     }
@@ -174,5 +243,14 @@ public class MainWindowController implements Initializable, Observer {
         joystick.setDisable(val);
         throttleSlider.setDisable(val);
         rudderSlider.setDisable(val);
+    }
+
+    public void markDestOnMap(MouseEvent mouseEvent) {
+        double posX = mouseEvent.getX();
+        double posY = mouseEvent.getY();
+        mapCanvas.markDest(posX, posY);
+        destCordX.set(mapCanvas.destY);
+        destCordY.set(mapCanvas.destX);
+        viewModel.calcMap(mapCanvas.matrix);
     }
 }

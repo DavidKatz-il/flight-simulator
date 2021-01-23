@@ -1,9 +1,6 @@
 package viewmodel;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import model.Model;
 
 import java.util.Observable;
@@ -12,9 +9,9 @@ import java.util.Observer;
 public class ViewModel extends Observable implements Observer {
     Model model;
 
-    public StringProperty scriptText, serverPort, serverSleep, clientIp, clientPort;
+    public StringProperty scriptText, serverPort, serverSleep, clientIp, clientPort, solverIp, solverPort;
     public DoubleProperty aileron, elevator, throttle, rudder;
-
+    public IntegerProperty planeX, planeY, destX, destY;
 
     public ViewModel(Model model) {
         this.model = model;
@@ -28,6 +25,13 @@ public class ViewModel extends Observable implements Observer {
         throttle = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         scriptText = new SimpleStringProperty();
+        solverIp = new SimpleStringProperty();
+        solverPort = new SimpleStringProperty();
+        planeX = new SimpleIntegerProperty();
+        planeY = new SimpleIntegerProperty();
+        destX = new SimpleIntegerProperty();
+        destY = new SimpleIntegerProperty();
+
     }
 
     public void updateAileronAndElevator() {
@@ -56,12 +60,24 @@ public class ViewModel extends Observable implements Observer {
         );
     }
 
+    public void connectSolver() {
+        model.connectToSolver(
+                solverIp.get(),
+                (int)Double.parseDouble(solverPort.get())
+        );
+    }
+
+    public void calcMap(Integer[][] matrix) {
+        model.calcMap(matrix, this.planeX.get(),this.planeY.get(),this.destX.get(),this.destY.get());
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if(o == model) {
-            if (arg.equals("connectedToSimulator")) {
+            if (arg.equals("connectedToSimulator") | arg.equals("connectedToSolver")) {
                 notifyObservers("closePopUp");
             }
         }
     }
+
 }
