@@ -15,6 +15,7 @@ public class MapCanvas extends Canvas {
     private double widthBlock, heightBlock;
     private int max, min;
     private double dist, initPlaneX, initPlaneY;
+    private GraphicsContext gc;
     public Integer[][] matrix;
 
     public void setData(Integer[][] coords, double x, double y, int maxMapValue, int minMapValue, double distance) {
@@ -27,7 +28,7 @@ public class MapCanvas extends Canvas {
     }
 
     public void draw() {
-        GraphicsContext gc = getGraphicsContext2D();
+        gc = getGraphicsContext2D();
         this.widthBlock = getWidth() / matrix[0].length;
         this.heightBlock = getHeight() / matrix.length;
 
@@ -48,13 +49,24 @@ public class MapCanvas extends Canvas {
     public void markDest(double posX, double posY) {
         if (!isMapLoaded)
             return;
+
+        // this is an ugly work around, but i can't find something better
+        if(isDestMarked)
+        {
+            //delete old map first
+            draw();
+            markPlane(planeX, planeY);
+        }
+        this.destX = posX;
+        this.destY = posY;
         drawImage("./resources/dest.png", posX, posY);
+        isDestMarked = true;
     }
 
     private void drawImage(String name, double posX, double posY) {
         try {
             Image img = new Image(new FileInputStream(name));
-            GraphicsContext gc = getGraphicsContext2D();
+            gc = getGraphicsContext2D();
             gc.drawImage(img, (int)(posX / widthBlock)*widthBlock, (int)(posY / heightBlock)*heightBlock);
         } catch (FileNotFoundException e) { e.printStackTrace(); }
     }

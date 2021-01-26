@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 
 <?import view.MapCanvas?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowController">
+<AnchorPane maxHeight="-Infinity" style="-fx-background-color: white;" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowController">
    <children>
       <AnchorPane prefHeight="500.0" prefWidth="333.0">
          <children>
-            <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" onAction="#connectPopUp" text="Connect" />
-            <Button layoutX="104.0" layoutY="50.0" mnemonicParsing="false" onAction="#loadCsv" text="Load data" />
-            <Button layoutX="208.0" layoutY="50.0" mnemonicParsing="false" onAction="#calcPathPopUp" text="Calculate path" />
+            <Button layoutX="10.0" style="-fx-background-color: dodgerblue;" layoutY="50.0" mnemonicParsing="false" onAction="#connectPopUp" text="Connect" />
+            <Button layoutX="104.0" style="-fx-background-color: dodgerblue;" layoutY="50.0" mnemonicParsing="false" onAction="#loadCsv" text="Load data" />
+            <Button layoutX="208.0" style="-fx-background-color: dodgerblue;" layoutY="50.0" mnemonicParsing="false" onAction="#calcPathPopUp" text="Calculate path" />
             <MapCanvas fx:id="mapCanvas" onMouseClicked="#markDestOnMap" height="390.0" layoutY="110.0" width="333.0" />
          </children>
       </AnchorPane>
@@ -31,7 +31,7 @@
                <toggleGroup>
                   <ToggleGroup fx:id="radioButton" />
                </toggleGroup></RadioButton>
-            <Button layoutX="220.0" layoutY="50.0" mnemonicParsing="false" onAction="#openFile" text="Load" />
+            <Button layoutX="220.0" style="-fx-background-color: dodgerblue;" layoutY="50.0" mnemonicParsing="false" onAction="#openFile" text="Load" />
          </children>
       </AnchorPane>
       <Separator layoutX="666.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="10.0" />
@@ -39,7 +39,7 @@
          <children>
             <AnchorPane layoutX="80.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Circle fx:id="joystickRadius" fill="DODGERBLUE" layoutX="100.0" layoutY="100.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="joystickRadius" fill="dodgerblue" layoutX="100.0" layoutY="100.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
                   <Sphere fx:id="joystick" layoutX="100.0" layoutY="100.0" onMouseDragged="#joystickDragged" onMousePressed="#joystickDragged" onMouseReleased="#joystickReleased" radius="50.0" />
                </children>
             </AnchorPane>

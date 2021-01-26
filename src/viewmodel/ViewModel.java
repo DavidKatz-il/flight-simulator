@@ -2,7 +2,14 @@ package viewmodel;
 
 import javafx.beans.property.*;
 import model.Model;
+import view.MapCanvas;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +19,7 @@ public class ViewModel extends Observable implements Observer {
     public StringProperty scriptText, serverPort, serverSleep, clientIp, clientPort, solverIp, solverPort;
     public DoubleProperty aileron, elevator, throttle, rudder;
     public IntegerProperty planeX, planeY, destX, destY;
+    public MapCanvas mapCanvas;
 
     public ViewModel(Model model) {
         this.model = model;
@@ -31,7 +39,7 @@ public class ViewModel extends Observable implements Observer {
         planeY = new SimpleIntegerProperty();
         destX = new SimpleIntegerProperty();
         destY = new SimpleIntegerProperty();
-
+        mapCanvas = new MapCanvas();
     }
 
     public void updateAileronAndElevator() {
@@ -65,6 +73,32 @@ public class ViewModel extends Observable implements Observer {
                 solverIp.get(),
                 (int)Double.parseDouble(solverPort.get())
         );
+    }
+
+    public void runClient(int port){
+        Socket s=null;
+        PrintWriter out=null;
+        BufferedReader in=null;
+        try{
+            s=new Socket(solverIp.get(),(int)Double.parseDouble(solverPort.get()));
+            s.setSoTimeout(3000);
+            /*
+            * need to fill in the logic here
+            * */
+
+        }catch(SocketTimeoutException e){
+            System.out.println("\tYour Server takes over 3 seconds to answer");
+        }catch(IOException e){
+            System.out.println("\tYour Server ran into some IOException");
+        }finally{
+            /*try {
+                in.close();
+                out.close();
+                s.close();
+            } catch (IOException e) {
+                System.out.println("\tYour Server ran into some IOException");
+            }*/
+        }
     }
 
     public void calcMap(Integer[][] matrix) {

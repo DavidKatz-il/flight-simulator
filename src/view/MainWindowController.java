@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -18,7 +19,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import viewmodel.ViewModel;
 
+import javax.swing.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -112,6 +115,7 @@ public class MainWindowController implements Initializable, Observer {
                 mapCanvas.setData(coords, corX, corY, maxMapValue, minMapValue, distance);
                 mapCanvas.draw();
                 mapCanvas.markPlane(corX, corY);
+                viewModel.mapCanvas = mapCanvas;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -142,6 +146,7 @@ public class MainWindowController implements Initializable, Observer {
 
         Scene scene = new Scene(root,300,250);
         Stage primaryStage = new Stage();
+        primaryStage.getIcons().add(new Image(new FileInputStream("./resources/connect.png")));
         primaryStage.setTitle("Connect to Simulator");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -152,11 +157,18 @@ public class MainWindowController implements Initializable, Observer {
     }
 
     public void calcPathPopUp() throws IOException {
+        if(!mapCanvas.isMapLoaded)
+        {
+            //We want to make sure the user loaded a map before trying to calculate
+            JOptionPane.showMessageDialog(null, "You need to load a map first!", "Loading Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         FXMLLoader fxl = new FXMLLoader(getClass().getResource("CalcPathPopUpWindow.fxml"));
         AnchorPane root = fxl.load();
 
         Scene scene = new Scene(root,300,150);
         Stage primaryStage = new Stage();
+        primaryStage.getIcons().add(new Image(new FileInputStream("./resources/calc.png")));
         primaryStage.setTitle("Connect to MapSolver");
         primaryStage.setScene(scene);
         primaryStage.show();
