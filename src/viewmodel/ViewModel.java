@@ -4,22 +4,18 @@ import javafx.beans.property.*;
 import model.Model;
 import view.MapCanvas;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.Observable;
 import java.util.Observer;
 
 public class ViewModel extends Observable implements Observer {
     Model model;
 
-    public StringProperty scriptText, serverPort, serverSleep, clientIp, clientPort, solverIp, solverPort;
-    public DoubleProperty aileron, elevator, throttle, rudder;
+    public StringProperty scriptText, serverPort, serverSleep, clientIp, clientPort, solverIp, solverPort, mapPath;
+    public DoubleProperty aileron, elevator, throttle, rudder,simPlaneX,simPlaneY;
+
     public IntegerProperty planeX, planeY, destX, destY;
     public MapCanvas mapCanvas;
+
 
     public ViewModel(Model model) {
         this.model = model;
@@ -40,6 +36,11 @@ public class ViewModel extends Observable implements Observer {
         destX = new SimpleIntegerProperty();
         destY = new SimpleIntegerProperty();
         mapCanvas = new MapCanvas();
+        mapPath = new SimpleStringProperty();
+        simPlaneX = new SimpleDoubleProperty();
+        simPlaneY = new SimpleDoubleProperty();
+        simPlaneX.set(model.getPlaneX());
+        simPlaneY.set(model.getPlaneY());
     }
 
     public void updateAileronAndElevator() {
@@ -75,32 +76,6 @@ public class ViewModel extends Observable implements Observer {
         );
     }
 
-    public void runClient(int port){
-        Socket s=null;
-        PrintWriter out=null;
-        BufferedReader in=null;
-        try{
-            s=new Socket(solverIp.get(),(int)Double.parseDouble(solverPort.get()));
-            s.setSoTimeout(3000);
-            /*
-            * need to fill in the logic here
-            * */
-
-        }catch(SocketTimeoutException e){
-            System.out.println("\tYour Server takes over 3 seconds to answer");
-        }catch(IOException e){
-            System.out.println("\tYour Server ran into some IOException");
-        }finally{
-            /*try {
-                in.close();
-                out.close();
-                s.close();
-            } catch (IOException e) {
-                System.out.println("\tYour Server ran into some IOException");
-            }*/
-        }
-    }
-
     public void calcMap(Integer[][] matrix) {
         model.calcMap(matrix, this.planeX.get(),this.planeY.get(),this.destX.get(),this.destY.get());
     }
@@ -112,6 +87,11 @@ public class ViewModel extends Observable implements Observer {
                 notifyObservers("closePopUp");
             }
         }
+        else if(arg.equals("done map calculate")) {
+            mapPath.set(model.getPath());
+            notifyObservers("done map calculate");
+        }
+
     }
 
 }

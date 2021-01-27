@@ -2,6 +2,8 @@ package view;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +46,8 @@ public class MainWindowController implements Initializable, Observer {
 
     ViewModel viewModel;
     private double JoystickRadius, JoystickCenterX, JoystickCenterY, JoystickInitializedCenterX, JoystickInitializedCenterY;
-    public DoubleProperty aileron, elevator, planeCordX, planeCordY, destCordX, destCordY;
+    public DoubleProperty aileron, elevator, planeCordX, planeCordY, destCordX, destCordY, simPlaneX, simPlaneY;
+    public StringProperty mapPath;
     private int maxMapValue = 0, minMapValue = 0;
 
     public MainWindowController() {
@@ -54,6 +57,9 @@ public class MainWindowController implements Initializable, Observer {
         planeCordY = new SimpleDoubleProperty();
         destCordX = new SimpleDoubleProperty();
         destCordY = new SimpleDoubleProperty();
+        mapPath = new SimpleStringProperty();
+        simPlaneX = new SimpleDoubleProperty();
+        simPlaneY = new SimpleDoubleProperty();
     }
 
     public void setViewModel(ViewModel viewModel) {
@@ -67,6 +73,11 @@ public class MainWindowController implements Initializable, Observer {
         viewModel.planeY.bind(this.planeCordY);
         viewModel.destX.bind(this.destCordX);
         viewModel.destY.bind(this.destCordY);
+
+        this.mapPath.bind(viewModel.mapPath);
+        this.simPlaneX.bind(viewModel.simPlaneX);
+        this.simPlaneY.bind(viewModel.simPlaneY);
+
     }
 
     @Override
@@ -234,7 +245,16 @@ public class MainWindowController implements Initializable, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if(o == viewModel) {
+            if (arg.equals("done map calculate")) {
+                String tmpPath = mapPath.get();
 
+                if (mapCanvas.isMapLoaded)
+                    mapCanvas.setPlaneOnMap(simPlaneX.get(), simPlaneY.get());
+                mapCanvas.setPath(tmpPath);
+                mapCanvas.drawPath(tmpPath);
+            }
+        }
     }
 
     public void startManualPilot(ActionEvent actionEvent) {
