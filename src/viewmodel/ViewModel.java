@@ -84,10 +84,12 @@ public class ViewModel extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         if(o == model) {
             if (arg.equals("connectedToSimulator") | arg.equals("connectedToSolver")) {
+                setChanged();
                 notifyObservers("closePopUp");
             }
             else if(arg.equals("done map calculate")) {
                 mapPath.set(model.getPath());
+                setChanged();
                 notifyObservers("done map calculate");
             }
         }

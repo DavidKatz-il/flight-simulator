@@ -44,8 +44,10 @@ public class Model extends Observable {
         new Server(serverPort, serverSleep);
         new Client(clientHost, clientPort);
         synchronized (Utilities.clientStatus) {
-            if (Utilities.clientStatus.connected)
+            if (Utilities.clientStatus.connected) {
+                setChanged();
                 notifyObservers("connectedToSimulator");
+            }
         }
     }
 
@@ -53,6 +55,7 @@ public class Model extends Observable {
         try {
             clientMap = new Socket(solverIp, solverPort);
             clientMap.setSoTimeout(3000);
+            setChanged();
             notifyObservers("connectedToSolver");
         } catch (IOException e) { e.printStackTrace(); }
     }
@@ -85,6 +88,7 @@ public class Model extends Observable {
             out.close();
             in.close();
             clientMap.close();
+            setChanged();
             notifyObservers("done map calculate");
 
         } catch (IOException e) {
