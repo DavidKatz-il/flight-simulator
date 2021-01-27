@@ -86,12 +86,11 @@ public class ViewModel extends Observable implements Observer {
             if (arg.equals("connectedToSimulator") | arg.equals("connectedToSolver")) {
                 notifyObservers("closePopUp");
             }
+            else if(arg.equals("done map calculate")) {
+                mapPath.set(model.getPath());
+                notifyObservers("done map calculate");
+            }
         }
-        else if(arg.equals("done map calculate")) {
-            mapPath.set(model.getPath());
-            notifyObservers("done map calculate");
-        }
-
     }
 
 }

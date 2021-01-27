@@ -53,6 +53,7 @@ public class Model extends Observable {
         try {
             clientMap = new Socket(solverIp, solverPort);
             clientMap.setSoTimeout(3000);
+            notifyObservers("connectedToSolver");
         } catch (IOException e) { e.printStackTrace(); }
     }
 

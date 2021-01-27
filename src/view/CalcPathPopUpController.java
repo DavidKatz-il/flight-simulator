@@ -22,21 +22,17 @@ public class CalcPathPopUpController implements Observer {
 
     public void connectSolver() {
         viewModel.connectSolver();
-        update(viewModel, "closePopUp");
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        {
-            if(o == viewModel) {
-                if(arg.equals("closePopUp")) {
-                    Stage stage = (Stage) solverIp.getScene().getWindow();
-                    if  (stage.isShowing())
-                        stage.close();
-                }
+        if(o == viewModel) {
+            if(arg.equals("closePopUp")) {
+                Stage stage = (Stage) solverIp.getScene().getWindow();
+                if  (stage.isShowing())
+                    stage.close();
             }
         }
     }
-
 
 }
