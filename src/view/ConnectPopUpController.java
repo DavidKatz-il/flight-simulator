@@ -25,6 +25,7 @@ public class ConnectPopUpController implements Observer {
 
     public void connectSimulator() {
         viewModel.connectSimulator();
+        update(viewModel, "closePopUp");
     }
 
     @Override

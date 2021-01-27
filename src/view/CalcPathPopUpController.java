@@ -22,6 +22,7 @@ public class CalcPathPopUpController implements Observer {
 
     public void connectSolver() {
         viewModel.connectSolver();
+        update(viewModel, "closePopUp");
     }
 
     @Override
