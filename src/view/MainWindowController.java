@@ -168,9 +168,8 @@ public class MainWindowController implements Initializable, Observer {
     }
 
     public void calcPathPopUp() throws IOException {
-        if(!mapCanvas.isMapLoaded)
-        {
-            //We want to make sure the user loaded a map before trying to calculate
+        if (!mapCanvas.isMapLoaded) {
+            // We want to make sure the user loaded a map before trying to calculate
             JOptionPane.showMessageDialog(null, "You need to load a map first!", "Loading Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -265,6 +264,7 @@ public class MainWindowController implements Initializable, Observer {
         if (textArea.textProperty().get().equals("")) {
             autoPilot.setSelected(false);
             manualPilot.setSelected(true);
+            JOptionPane.showMessageDialog(null, "You need to load a script first!", "Loading Error", JOptionPane.ERROR_MESSAGE);
         } else {
             setDisableManual(true);
             viewModel.runScript();
