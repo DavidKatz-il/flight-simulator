@@ -121,8 +121,8 @@ public class MapCanvas extends Canvas {
             draw();
             markPlane(planeX, planeY);
         }
-        this.destX = posX;
-        this.destY = posY;
+        this.destX = (int)(posX / widthBlock);
+        this.destY = (int)(posY / heightBlock);
         drawImage("./resources/dest.png", posX, posY);
         isDestMarked = true;
     }
