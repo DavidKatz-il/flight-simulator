@@ -102,15 +102,10 @@ public class Model extends Observable {
     }
 
     public double getPlaneX() {
-        return 0.0;
-        // TODO: add to generic small file
-//        return Utilities.getSimNumber("/sim/current-view/viewer-x-m").calculate();
+        return Utilities.getSimNumber("/sim/current-view/viewer-x-m").calculate();
     }
 
     public double getPlaneY() {
-        return 0.0;
-        // TODO: add to generic small file
-//        return Utilities.getSimNumber("/sim/current-view/viewer-y-m").calculate();
+        return Utilities.getSimNumber("/sim/current-view/viewer-y-m").calculate();
     }
-
 }

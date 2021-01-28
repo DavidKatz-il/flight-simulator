@@ -39,8 +39,6 @@ public class ViewModel extends Observable implements Observer {
         mapPath = new SimpleStringProperty();
         simPlaneX = new SimpleDoubleProperty();
         simPlaneY = new SimpleDoubleProperty();
-        simPlaneX.set(model.getPlaneX());
-        simPlaneY.set(model.getPlaneY());
     }
 
     public void updateAileronAndElevator() {
@@ -84,6 +82,8 @@ public class ViewModel extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         if(o == model) {
             if (arg.equals("connectedToSimulator") | arg.equals("connectedToSolver")) {
+                simPlaneX.set(model.getPlaneX());
+                simPlaneY.set(model.getPlaneY());
                 setChanged();
                 notifyObservers("closePopUp");
             }
@@ -94,5 +94,4 @@ public class ViewModel extends Observable implements Observer {
             }
         }
     }
-
 }
