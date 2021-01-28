@@ -1,5 +1,6 @@
 package model;
 
+import expressions.Expression;
 import interpreter.MyInterpreter;
 import interpreter.Utilities;
 import network.Client;
@@ -102,10 +103,16 @@ public class Model extends Observable {
     }
 
     public double getPlaneX() {
-        return Utilities.getSimNumber("/sim/current-view/viewer-x-m").calculate();
+        Expression ex = Utilities.getSimNumber("/sim/current-view/viewer-x-m");
+        if (ex == null)
+            return 0.0;
+        return ex.calculate();
     }
 
     public double getPlaneY() {
-        return Utilities.getSimNumber("/sim/current-view/viewer-y-m").calculate();
+        Expression ex = Utilities.getSimNumber("/sim/current-view/viewer-y-m");
+        if (ex == null)
+            return 0.0;
+        return ex.calculate();
     }
 }
