@@ -59,19 +59,19 @@ public class MapCanvas extends Canvas {
             switch (mapPath[i]) {
                 case "Right":
                     ++posX;
-                    gc.fillRect(posX * widthBlock, posY * heightBlock + heightBlock / 3, widthBlock / 2, heightBlock / 6);
+                    gc.fillRect(posX * widthBlock, posY * heightBlock + heightBlock, widthBlock, heightBlock);
                     break;
                 case "Down":
                     ++posY;
-                    gc.fillRect(posX * widthBlock + widthBlock / 3, posY * heightBlock, widthBlock / 6, heightBlock / 2);
+                    gc.fillRect(posX * widthBlock + widthBlock, posY * heightBlock, widthBlock, heightBlock);
                     break;
                 case "Left":
                     --posX;
-                    gc.fillRect(posX * widthBlock, posY * heightBlock + heightBlock / 3, widthBlock / 2, heightBlock / 6);
+                    gc.fillRect(posX * widthBlock, posY * heightBlock + heightBlock, widthBlock, heightBlock);
                     break;
                 case "Up":
                     --posY;
-                    gc.fillRect(posX * widthBlock + widthBlock / 3, posY * heightBlock, widthBlock / 6, heightBlock / 2);
+                    gc.fillRect(posX * widthBlock + widthBlock, posY * heightBlock, widthBlock, heightBlock);
                     break;
             }
         }
@@ -123,7 +123,7 @@ public class MapCanvas extends Canvas {
         }
         this.destX = (int)(posX / widthBlock);
         this.destY = (int)(posY / heightBlock);
-        drawImage("./resources/dest.png", posX, posY);
+        drawImage("resources/dest.png", posX, posY);
         isDestMarked = true;
     }
 
