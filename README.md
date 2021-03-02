@@ -13,8 +13,8 @@ These instructions will get you a copy of the project up and running on your loc
 # Prerequisites
 What things you need to install the software and how to install them.
 
-imports / technologies:
-* javafx
-* Flight Gear - open-source flight simulator
-Built With
-* InteliJ - Java IDE
+## Imports / technologies:
+* [JavaFX](https://openjfx.io/)
+* [Flight Gear](https://www.flightgear.org/) - open-source flight simulator
+## Built With
+* [InteliJ](https://www.jetbrains.com/idea/download/) - Java IDE
